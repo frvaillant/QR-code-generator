@@ -25,7 +25,7 @@ abstract class AbstractController
 
     protected function publish($view, $data)
     {
-        echo $this->twig->render($view, $data);
+        return $this->twig->render($view, $data);
     }
 
 

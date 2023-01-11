@@ -3,4 +3,4 @@
     require 'vendor/autoload.php';
 
     $controller = new HomeController();
-    $controller->index();
+    echo $controller->index();

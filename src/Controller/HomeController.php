@@ -5,6 +5,7 @@ use App\Form\Colors;
 use App\Form\FormManager;
 use App\Form\Levels;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
@@ -16,8 +17,9 @@ class HomeController extends AbstractController
 
     /**
      * Home page
+     * @Route("/", name="app_home")
      */
-    public function index()
+    public function index(): string
     {
 
         $qrCode = null;
@@ -39,7 +41,7 @@ class HomeController extends AbstractController
         }
         $errors = $formManager->getErrors();
 
-        $this->publish('index.html.twig', [
+        return $this->publish('index.html.twig', [
             'url'          => $formManager->getUrl(),
             'size'         => $formManager->getSize(),
             'color'        => $formManager->getColor(),
