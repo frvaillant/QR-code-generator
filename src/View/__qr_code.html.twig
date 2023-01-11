@@ -1,0 +1,34 @@
+
+<hr/>
+<div class="row mt-30 ">
+    <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="qrcode">
+            <div id="qrcode"></div>
+            <a
+                    id="downloader"
+                    data-quality="{{ quality }}"
+                    data-size="{{ size }}"
+                    data-url="{{ url | replace({'://': '_', '/': '_', '.': '_'}) }}"
+                    onclick="downloadQrCode(this); addLoader(this, 500);"
+                    href="#"
+                    class="btn"
+                    style="background: {{ color }}"
+            >
+                <i class="fa-solid fa-floppy-disk left "></i>
+                Download
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    new QRCode("qrcode", {
+        text: "{{ qr_code.url }}",
+        width: {{ qr_code.size }},
+        height: {{ qr_code.size }},
+        colorDark: "{{ qr_code.color }}",
+        colorLight: "{{ qr_code.light_color }}",
+        correctLevel: QRCode.CorrectLevel.{{ quality }},
+    })
+</script>

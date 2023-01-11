@@ -1,0 +1,7 @@
+<label for="size">Taille en pixels (max 1024)</label>
+<input class="mt-30" type="number" name="size" id="size" value="{{ size }}" max="{{ max_size }}" required>
+{% if errors and errors.size  %}
+    <div class="errors red-text">
+        {{ errors.size | raw }}
+    </div>
+{% endif %}

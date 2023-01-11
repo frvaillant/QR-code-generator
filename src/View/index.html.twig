@@ -1,0 +1,53 @@
+{% extends '__base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="section white">
+            <div class="row ">
+                {% include '__links.html.twig' %}
+            </div>
+            <div class="row mt-30">
+                {% include '__title.html.twig' %}
+            </div>
+            <div class="row mt-30">
+                <div class="col s12 m8 offset-m2 l6 offset-l3 white">
+                    <div class="form">
+                        <form method="post" id="form">
+
+                           {% include '__url_field.html.twig' %}
+                           {% include '__size_field.html.twig' %}
+
+                            <div class="row">
+                                {{ include('__color_field.html.twig', { 'isLight': false }) }}
+                                {{ include('__color_field.html.twig', { 'isLight': true }) }}
+                            </div>
+
+                            <div class="row">
+                                {% include '__quality_field.html.twig' %}
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <button
+                                            class="btn btn-large blue-grey darken-2"
+                                            onclick="addLoader(this);"
+                                    >
+                                        <i class="fa-solid fa-play left"></i>
+                                        Valider
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% if qr_code is defined and qr_code and is_ok %}
+                {% include '__qr_code.html.twig' %}
+            {% endif %}
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

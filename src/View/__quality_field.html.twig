@@ -1,0 +1,8 @@
+    {% for name, level in qualities %}
+        <div class="col s6 l3">
+            <label>
+                <input name="quality" value="{{ level }}" type="radio" {% if level == quality %}checked{% endif %} />
+                <span>{{ name }}</span>
+            </label>
+        </div>
+    {% endfor %}

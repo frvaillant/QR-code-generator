@@ -1,0 +1,24 @@
+{% set add = isLight ? 'light' : '' %}
+{% set colors = isLight ? light_colors : dark_colors %}
+{% set the_color = isLight ? light_color : color %}
+{% set colorError = isLight ? errors.light_color : errors.color %}
+<div class="col s12 m12 l6">
+    <label for="color">Couleur {% if isLight %}claire{% else %}foncée{% endif %} (ex : #FF0000)</label>
+    <div class="colors">
+        {% for class, choice_color in colors %}
+            <div
+                    class="color {{ class }} {{ add }} {% if the_color == choice_color %}active{% endif %}"
+                    data-color="{{ choice_color }}"
+                    data-target="{% if isLight %}light_{% endif %}color"
+            >
+            </div>
+        {% endfor %}
+    </div>
+    <input minlength="7" maxlength="7" class="color-field" type="text" name="{% if isLight %}light_{% endif %}color" id="{% if isLight %}light_{% endif %}color" value="{{ the_color }}" required>
+    {% set key = isLight ? 'light_color' : 'color' %}
+    {% if errors and errors[key]  %}
+    <div class="errors red-text">
+        {{ colorError | raw }}
+    </div>
+    {% endif %}
+</div>

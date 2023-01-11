@@ -1,0 +1,7 @@
+<label for="url">Url à encoder (ex : https://www.monsite.fr)</label>
+<input type="text" name="url" id="url" value="{{ url }}" required>
+{% if errors and errors.url  %}
+    <div class="errors red-text">
+        {{ errors.url | raw }}
+    </div>
+{% endif %}

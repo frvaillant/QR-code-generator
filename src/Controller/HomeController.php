@@ -1,0 +1,59 @@
+<?php
+namespace App\Controller;
+
+use App\Form\Colors;
+use App\Form\FormManager;
+use App\Form\Levels;
+use Symfony\Component\HttpFoundation\Request;
+
+class HomeController extends AbstractController
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Home page
+     */
+    public function index()
+    {
+
+        $qrCode = null;
+        $errors = null;
+        $maxSize = FormManager::MAX_SIZE;
+
+        $request = Request::createFromGlobals();
+        $data    = $request->request->all();
+        $formManager = new FormManager($data);
+
+        if($formManager->isSubmitted && $formManager->hasNotErrors()) {
+            $qrCode = [
+                'url'         => $formManager->getUrl(),
+                'size'        => $formManager->getSize(),
+                'color'       => $formManager->getColor(),
+                'light_color' => $formManager->getLightColor(),
+                'quality'     => $formManager->getQuality()
+            ];
+        }
+        $errors = $formManager->getErrors();
+
+        $this->publish('index.html.twig', [
+            'url'          => $formManager->getUrl(),
+            'size'         => $formManager->getSize(),
+            'color'        => $formManager->getColor(),
+            'light_color'  => $formManager->getLightColor(),
+            'quality'      => $formManager->getQuality(),
+            'max_size'     => $maxSize,
+            'qr_code'      => $qrCode,
+            'errors'       => $errors,
+            'is_ok'        => $formManager->hasNotErrors(),
+            'dark_colors'  => Colors::DARK_COLORS,
+            'light_colors' => Colors::LIGHT_COLORS,
+            'qualities'    => Levels::LEVELS,
+        ]);
+    }
+
+
+}
