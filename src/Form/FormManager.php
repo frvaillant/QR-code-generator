@@ -208,10 +208,4 @@ class FormManager
         return in_array($quality, ['L', 'M', 'Q', 'H']);
     }
 
-
-
-
-
-
-
 }

@@ -5,6 +5,7 @@ use App\Form\Colors;
 use App\Form\FormManager;
 use App\Form\Levels;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -19,15 +20,15 @@ class HomeController extends AbstractController
      * Home page
      * @Route("/", name="app_home")
      */
-    public function index(): string
+    public function index(): Response
     {
-
         $qrCode = null;
         $errors = null;
         $maxSize = FormManager::MAX_SIZE;
 
         $request = Request::createFromGlobals();
         $data    = $request->request->all();
+
         $formManager = new FormManager($data);
 
         if($formManager->isSubmitted && $formManager->hasNotErrors()) {
@@ -41,7 +42,7 @@ class HomeController extends AbstractController
         }
         $errors = $formManager->getErrors();
 
-        return $this->publish('index.html.twig', [
+        return $this->publish($this->twig->render('index.html.twig', [
             'url'          => $formManager->getUrl(),
             'size'         => $formManager->getSize(),
             'color'        => $formManager->getColor(),
@@ -54,7 +55,27 @@ class HomeController extends AbstractController
             'dark_colors'  => Colors::DARK_COLORS,
             'light_colors' => Colors::LIGHT_COLORS,
             'qualities'    => Levels::LEVELS,
-        ]);
+        ]));
+    }
+
+    /**
+     * @Route("/test", name="app_test")
+     */
+    public function test(): Response
+    {
+        $request = Request::createFromGlobals();
+
+        if($request->request->get('url')) {
+            var_dump('oui'); die;
+        }
+
+        return $this->publish(
+            $this->twig->render(
+                'test.html.twig', [
+
+                ]
+            )
+        );
     }
 
 

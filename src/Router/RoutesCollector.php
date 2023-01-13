@@ -135,12 +135,6 @@ class RoutesCollector
             }
         }
 
-        if($this->hasErrors()) {
-
-            $this->dispatchErrors();
-
-        }
-
         return $this->routes;
     }
 
@@ -177,45 +171,6 @@ class RoutesCollector
             $content .= '<br /> [' . $num . '] => ' . $error;
         }
         return $content;
-    }
-
-    /**
-     * this creates an error message as txt file and adds error notice in the WP back office in order to list routes conflicts
-     */
-    private function dispatchErrors(): void
-    {
-        $this->addWordpressAdminNotice();
-        if(is_user_logged_in() && current_user_can('administrator')) {
-            $this->addWordpressFrontNotice();
-        }
-    }
-
-    /**
-     * Adds error notice in wordpress back office if routes conflicts
-     */
-    private function addWordpressAdminNotice()
-    {
-        add_action('admin_enqueue_scripts', function ($hook) {
-            if ('post.php' !== $hook) {
-                return;
-            }
-            wp_register_script( 'routes_validator_admin', get_bloginfo('template_directory') . '/Router/assets/js/adminNotice.js' );
-            wp_enqueue_script( 'routes_validator_admin' );
-            wp_localize_script( 'routes_validator_admin', 'my_routes_errors', ['error_message' => base64_encode(utf8_decode($this->createErrorMessage()))] );
-        });
-    }
-
-    /**
-     * Adds error notice in wordpress front website if routes conflicts
-     */
-    private function addWordpressFrontNotice()
-    {
-        wp_enqueue_style('notice_alert', get_bloginfo('template_directory') . '/Router/assets/css/notice.css');
-        add_action('wp_enqueue_scripts', function ($hook) {
-            wp_register_script( 'routes_validator_front', get_bloginfo('template_directory') . '/Router/assets/js/frontNotice.js' );
-            wp_enqueue_script( 'routes_validator_front' );
-            wp_localize_script( 'routes_validator_front', 'my_routes_errors', ['error_message' => base64_encode(utf8_decode($this->createErrorMessage()))] );
-        });
     }
 
 
@@ -297,7 +252,6 @@ class RoutesCollector
                 $routePathWithoutVariables = '/' . $routePathWithoutVariables;
             }
 
-            $this->routesPaths[get_bloginfo('url') . $routePathWithoutVariables . '/'] = $method;
             $this->routes->add($route->getName(), new Route($route->getPath(), $arguments));
         }
     }
