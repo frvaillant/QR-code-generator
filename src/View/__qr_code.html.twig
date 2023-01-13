@@ -23,12 +23,12 @@
 </div>
 
 <script>
-    new QRCode("qrcode", {
-        text: "{{ qr_code.url }}",
-        width: {{ qr_code.size }},
-        height: {{ qr_code.size }},
-        colorDark: "{{ qr_code.color }}",
-        colorLight: "{{ qr_code.light_color }}",
-        correctLevel: QRCode.CorrectLevel.{{ quality }},
-    })
+        new QRCode("qrcode", {
+            text: "{{ qr_code.url }}",
+            width: {{ qr_code.size }},
+            height: {{ qr_code.size }},
+            colorDark: "{{ qr_code.color }}",
+            colorLight: "{{ qr_code.light_color }}",
+            correctLevel: QRCode.CorrectLevel.{{ quality }},
+        })
 </script>
