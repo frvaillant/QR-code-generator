@@ -3,6 +3,7 @@ const downloadQrCode = (e) => {
     const urlAttributes = e.dataset.url + '_' + e.dataset.size + '_' + e.dataset.quality + '-quality'
     const link = createFakeLink(data, urlAttributes)
     link.click()
+    return false
 }
 
 const createFakeLink = (data, url) => {
