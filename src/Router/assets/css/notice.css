@@ -1,0 +1,12 @@
+.router-notice-alert {
+    display: block;
+    position:fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    z-index: 999999999;
+    background-color: #e53935;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 20px 40px;
+}

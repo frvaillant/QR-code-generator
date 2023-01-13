@@ -9,7 +9,7 @@
                     data-quality="{{ quality }}"
                     data-size="{{ size }}"
                     data-url="{{ url | replace({'://': '_', '/': '_', '.': '_'}) }}"
-                    onclick="downloadQrCode(this); addLoader(this, 500);"
+                    onclick="return downloadQrCode(this); addLoader(this, 500);"
                     href="#"
                     class="btn"
                     style="background: {{ color }}"
