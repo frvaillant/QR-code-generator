@@ -1,0 +1,8 @@
+{
+  "name": "qrcode",
+  "version": "1.0.0",
+  "description": "simple app to generate qrcodes",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {}
+}

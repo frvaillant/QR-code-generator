@@ -13,10 +13,34 @@
     <link rel="stylesheet" href="src/style/style.css">
 </head>
 <body class="grey lighten-3">
+{% if test %}
+    <div class="container">
+        <div class="section white">
+            <div class="row ">
+                <div class="col s12 m8 offset-m2 l6 offset-l3 links">
+                    <span class="red-text">
+                        Vous êtes en mode test. Ouvrez la console pour voir les résultats des tests
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
 {% block body %}
 
 {% endblock %}
 
 {% include '__scripts.html.twig' %}
+
+{% if test %}
+    <script src="src/js/tests/Console.js"></script>
+    <script src="src/js/tests/AppTests.js"></script>
+    <script>
+        const Test = new AppTests()
+        Test.show()
+    </script>
+{% endif %}
+
 </body>
 </html>

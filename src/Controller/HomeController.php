@@ -55,28 +55,7 @@ class HomeController extends AbstractController
             'dark_colors'  => Colors::DARK_COLORS,
             'light_colors' => Colors::LIGHT_COLORS,
             'qualities'    => Levels::LEVELS,
+            'test'         => APP_ENV === 'dev' && $request->query->get('test') ?? null
         ]));
     }
-
-    /**
-     * @Route("/test", name="app_test")
-     */
-    public function test(): Response
-    {
-        $request = Request::createFromGlobals();
-
-        if($request->request->get('url')) {
-            var_dump('oui'); die;
-        }
-
-        return $this->publish(
-            $this->twig->render(
-                'test.html.twig', [
-
-                ]
-            )
-        );
-    }
-
-
 }
